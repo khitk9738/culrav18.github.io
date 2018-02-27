@@ -1,0 +1,151 @@
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>abc</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/demo.css" />
+	<script>document.documentElement.className = 'js';</script>
+</head>
+<body class="demo-5 loading">
+	<canvas id="webgl"></canvas>
+	<svg class="hidden">
+		<symbol id="icon-arrow" viewBox="0 0 24 24">
+			<title>arrow</title>
+			<polygon points="6.3,12.8 20.9,12.8 20.9,11.2 6.3,11.2 10.2,7.2 9,6 3.1,12 9,18 10.2,16.8 " />
+		</symbol>
+	</svg>
+	<main>
+			<div class="content__top">
+				<h1 class="main-title" style="font-size:28px;">Past Sponsors</h1>
+				<div class="codrops-links">
+					<a class="codrops-icon codrops-icon--prev" href="index.html" title="Home"><svg class="icon icon--arrow"><use xlink:href="#icon-arrow"></use></svg></a>
+					
+				</div>
+				
+			</div>
+		
+		<section class="content content--main">
+			<div class="our_clients">
+						<div class="col-lg-12 col-md-10 col-sm-4 client_img">
+								<img src="images/clients/1.png" alt="" />							
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+								<img src="images/clients/2.png" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/3.png" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/4.png" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/5.jpeg" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/6.png" alt="" />							
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/7.jpeg" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/8.jpg" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/9.png" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/10.jpg" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/11.png" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/12.jpg" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/13.png" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/14.png" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/15.png" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/16.png" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/17.jpg" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/18.png" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/19.jpg" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/20.png" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/21.png" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/22.png" alt="" />
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-4 client_img">
+							<img src="images/clients/23.jpg" alt="" />
+						</div>
+				</div><!-- client -->
+		
+		</section>
+	</main>
+	<script src="js/regl.min.js"></script>
+	<script type="x-shader/x-fragment" id="fragmentShader">
+	#define TWO_PI 6.2831853072
+	#define PI 3.14159265359
+
+	precision highp float;
+
+	uniform float globaltime;
+	uniform vec2 resolution;
+	uniform float aspect;
+	uniform float scroll;
+	uniform float velocity;
+	uniform sampler2D texture;
+
+	const float timescale = 0.1;
+	const float twist = 2.0;
+
+	vec2 rotate(vec2 v, float angle) {
+		float c = cos(angle);
+		float s = sin(angle);
+		return v * mat2(c, -s, s, c);
+	}
+
+	float nsin(float value) {
+		return sin(value * TWO_PI) * 0.5 + 0.5;
+	}
+
+	void main(void) {
+		float time = globaltime * timescale;
+		vec2 center = vec2(sin(TWO_PI * time * 0.2), cos(TWO_PI * time * 0.2)) * nsin(time * 0.3) * 0.5;
+		vec2 tx = (gl_FragCoord.xy / resolution.xy - 0.5 - center) * vec2(aspect, 1.0);
+		float len = 1.0 - length(tx);
+		float zoom = 1.0 + scroll - len * 3.0 * (1.0 - scroll) + len * velocity * 10.0;
+
+		vec4 imgColor = texture2D(
+			texture,
+			rotate(
+				(tx + center) * vec2(1.0, -1.0) * zoom,
+				twist * TWO_PI * nsin(len + time) * scroll + time
+			) + 0.5
+		);
+
+		gl_FragColor = imgColor;
+	}
+	</script>
+	<script src="js/demo5.js"></script>
+</body>
+</html>
